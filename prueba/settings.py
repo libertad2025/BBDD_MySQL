@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'modelos'
+    'modelos',
 ]
 
 MIDDLEWARE = [
@@ -76,9 +76,15 @@ WSGI_APPLICATION = 'prueba.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME':  '/home/libertad2025/prueba/prueba.db',
-    }
+                'ENGINE': 'django.db.backends.mysql',
+                'NAME': 'libertad2025$default',
+                'USER': 'libertad2025',
+                'PASSWORD': 'Collage1',
+                'HOST': 'libertad2025.mysql.pythonanywhere-services.com',
+                'OPTIONS': {
+                    'sql_mode': 'traditional',
+                    }
+                }
 }
 
 
@@ -119,6 +125,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # default static files settings for PythonAnywhere.
 # see https://help.pythonanywhere.com/pages/DjangoStaticFiles for more info

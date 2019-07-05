@@ -1,35 +1,26 @@
 from django.db import models
+from django.utils import timezone
 
-# Create your models here.
-class Alumno (models.Model):
-    ApellidoPaterno=models.CharField(max_length=35)
-    ApellidoMaterno = models.CharField(max_length=35)
-    Nombre = models.CharField(max_length=35)
-    DNI = models.CharField(max_length=9)
-    FechaNacimiento=models.DateField()
-    SEXOS=(('F', 'Femenino'), ('M', 'Masculino'),)
-    Sexo=models.CharField(max_length=1, choices=SEXOS,default='M')
+class Autor(models.Model):
+    nombre = models.CharField(max_length=30)
+    apellidos = models.CharField(max_length=50)
+    login=models.CharField(max_length=30)
+    pais = models.CharField(max_length=50)
+    email = models.EmailField(blank=True, null=True)
+    def __str__(self): # __unicode__ en Python 2
+        return self.nombre
 
-    def NombreCompleto(self):
-        cadena="{0}{1},{2}"
-        return cadena.format(self.ApellidoPaterno, self.ApellidoMaterno, self.Nombre)
 
-    def __str__(self):
-        return self.NombreCompleto()
-
-class Curso (models.Model):
-    Nombre = models.CharField(max_length=35)
-    Creditos=models.PositiveSmallIntegerField()
-    Estado=models.BooleanField(default=True)
+class Post(models.Model):
+    author = models.ForeignKey('Autor', on_delete=models.CASCADE)
+    #autores = models.ManyToManyField(Autor)
+    titulo = models.CharField(max_length=100)
+    comentario=models.CharField(max_length=1000)
+    fecha_creacion = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return "{0} ({1})".format(self.Nombre, self.Creditos)
+        return self.titulo
 
-class Matricula (models.Model):
-    Alumno=models.ForeignKey(Alumno, null=False, blank=False, on_delete=models.CASCADE)
-    Curso = models.ForeignKey(Curso, null=False, blank=False, on_delete=models.CASCADE)
-    FechaMatricula= models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        cadena = "{0} => {1}"
-        return cadena.format(self.Alumno, self.Curso.Nombre)
+    def publish(self):
+        self.published_date = timezone.now()
+        self.save()
