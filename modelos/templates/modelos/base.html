@@ -4,7 +4,9 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    <h1>Mi sitio Web</h1>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <img src="{% static "images/logo.png" %}" alt="El blog del Boss">
     {% block content %}{% endblock %}
     {% block footer %}
     <hr>

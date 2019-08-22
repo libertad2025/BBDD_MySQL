@@ -129,7 +129,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # default static files settings for PythonAnywhere.
 # see https://help.pythonanywhere.com/pages/DjangoStaticFiles for more info
-MEDIA_ROOT = u'/home/libertad2025/prueba/media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-STATIC_ROOT = u'/home/libertad2025/prueba/static'
-STATIC_URL = '/static/'

@@ -1,17 +1,22 @@
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
 {% extends "base.html" %}
 {% block title %}fecha_actual{% endblock %}
 {% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
 <div class="content container">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-16">
                 <div class="post">
                     <div class="date">
                         {% for Post in Posts %}
                             <div>
-                                <p> publicado: {{ Post.fecha_creacion }}</p>
                                 <h1><a href = "" >{{ Post.titulo }} </a></h1>
-                                <p>{{ Post.comentario|linebreaksbr }} </p>
-                            </div>{% endfor %}
+                                <p >{{ Post.comentario|linebreaksbr }} </p>
+                                <em><p align="right"> Publicado por <b>{{ Post.author }} el {{ Post.fecha_creacion }}</b></p></em>
+                        </div>{% endfor %}
                     </div>
                 </div>
          </div>
